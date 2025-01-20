@@ -1,0 +1,28 @@
+# Template file for 'joycond-cemuhook'
+homepage="https://github.com/joaorb64/joycond-cemuhook"
+license="MIT"
+maintainer="juligar <julianisgaes@gmail.com>"
+pkgname=joycond-cemuhook
+revision=1
+short_desc="Support for cemuhook's UDP protocol for joycond devices"
+version=1.0.1
+hostmakedepends="git python"
+makedepends="python3-build python3-setuptools python3-installer"
+depends="joycond python python3-evdev python3-pyudev python3-termcolor python3-dbus python3-gobject"
+do_fetch() {
+   cd ${XBPS_SRCDISTDIR}
+   git clone ${homepage}.git
+}
+do_build() {
+   cp -r ${XBPS_SRCDISTDIR}/${pkgname} ${XBPS_BUILDDIR}
+   cd ${XBPS_BUILDDIR}/${pkgname}
+   python -m build --wheel --no-isolation --skip-dependency-check
+}
+do_install() {
+   cd ${XBPS_BUILDDIR}/${pkgname}
+   python -m installer --destdir=${DESTDIR} dist/*.whl
+}
+do_clean() {
+   rm -rf ${XBPS_SRCDISTDIR}/${pkgname}
+   rm -rf ${XBPS_BUILDDIR}/${pkgname}
+}
