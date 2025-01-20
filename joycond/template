@@ -1,0 +1,37 @@
+# Template file for 'joycond'
+homepage="https://github.com/DanielOgorchock/joycond"
+license="GPL-3.0-only"
+maintainer="juligar <julianisgaes@gmail.com>"
+pkgname=joycond
+revision=1
+short_desc="userspace daemon to combine joy-cons from the hid-nintendo kernel driver"
+version=1.0.1
+hostmakedepends="git cmake"
+makedepends="pkg-config libevdev-devel eudev-libudev-devel"
+do_fetch() {
+   cd ${XBPS_SRCDISTDIR}
+   git clone ${homepage}.git
+}
+do_configure() {
+   cp -r ${XBPS_SRCDISTDIR}/${pkgname} ${XBPS_BUILDDIR}
+   cd ${XBPS_BUILDDIR}/${pkgname}
+   cmake -DCMAKE_INSTALL_PREFIX=/usr .
+}
+do_build() {
+   cd ${XBPS_BUILDDIR}/${pkgname}
+   make
+}
+do_install() {
+   cd ${XBPS_BUILDDIR}/${pkgname}
+   make DESTDIR=${DESTDIR} install
+   mv ${DESTDIR}/lib/* ${DESTDIR}/usr/lib
+   rm -r ${DESTDIR}/lib
+   rm -r ${DESTDIR}/etc/systemd
+   mkdir -p ${DESTDIR}/etc/sv/joycond
+   echo -e '#!/bin/sh\nexec joycond' > ${DESTDIR}/etc/sv/joycond/run
+   chmod +x ${DESTDIR}/etc/sv/joycond/run
+}
+do_clean() {
+   rm -rf ${XBPS_SRCDISTDIR}/${pkgname}
+   rm -rf ${XBPS_BUILDDIR}/${pkgname}
+}
