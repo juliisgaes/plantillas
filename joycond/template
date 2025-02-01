@@ -23,10 +23,6 @@ do_build() {
    cd ${XBPS_BUILDDIR}/${pkgname}
    make
 }
-pre_install() {
-   mkdir -p ${FILESDIR}/${pkgname}
-   echo -e '#!/bin/sh\nexec joycond' > ${FILESDIR}/${pkgname}/run
-}
 do_install() {
    cd ${XBPS_BUILDDIR}/${pkgname}
    make DESTDIR=${DESTDIR} install
