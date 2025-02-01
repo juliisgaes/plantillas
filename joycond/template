@@ -12,8 +12,10 @@ do_fetch() {
    cd ${XBPS_SRCDISTDIR}
    git clone ${homepage}.git
 }
-do_configure() {
+pre_configure() {
    cp -r ${XBPS_SRCDISTDIR}/${pkgname} ${XBPS_BUILDDIR}
+}
+do_configure() {
    cd ${XBPS_BUILDDIR}/${pkgname}
    cmake -DCMAKE_INSTALL_PREFIX=/usr .
 }
@@ -21,15 +23,18 @@ do_build() {
    cd ${XBPS_BUILDDIR}/${pkgname}
    make
 }
+pre_install() {
+   mkdir -p ${FILESDIR}/${pkgname}
+   echo -e '#!/bin/sh\nexec joycond' > ${FILESDIR}/${pkgname}/run
+}
 do_install() {
    cd ${XBPS_BUILDDIR}/${pkgname}
    make DESTDIR=${DESTDIR} install
+}
+post_install() {
    mv ${DESTDIR}/lib/* ${DESTDIR}/usr/lib
    rm -r ${DESTDIR}/lib
-   rm -r ${DESTDIR}/etc/systemd
-   mkdir -p ${DESTDIR}/etc/sv/joycond
-   echo -e '#!/bin/sh\nexec joycond' > ${DESTDIR}/etc/sv/joycond/run
-   chmod +x ${DESTDIR}/etc/sv/joycond/run
+   vsv ${pkgname}
 }
 do_clean() {
    rm -rf ${XBPS_SRCDISTDIR}/${pkgname}
