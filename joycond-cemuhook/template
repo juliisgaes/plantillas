@@ -13,8 +13,10 @@ do_fetch() {
    cd ${XBPS_SRCDISTDIR}
    git clone ${homepage}.git
 }
-do_build() {
+pre_build() {
    cp -r ${XBPS_SRCDISTDIR}/${pkgname} ${XBPS_BUILDDIR}
+}
+do_build() {
    cd ${XBPS_BUILDDIR}/${pkgname}
    python -m build --wheel --no-isolation --skip-dependency-check
 }
