@@ -1,0 +1,49 @@
+# Template file for 'brother-brgenml1'
+homepage="https://support.brother.com/g/s/id/linux/en"
+license="GLP-2.0-only AND custom:brother commercial license for LPR driver"
+maintainer="juligar <julianisgaes@gmail.com>"
+pkgname=brother-brgenml1
+revision=1
+short_desc="LPR and CUPS driver for various Brother DCP, HL and MFC models"
+version=3.1.0
+hostmakedepends="wget 7zip"
+depends="cups"
+do_fetch() {
+   cd ${XBPS_SRCDISTDIR}
+   wget -O brgenml1lpr-3.1.0-1.i386.rpm https://download.brother.com/welcome/dlf101124/brgenml1lpr-3.1.0-1.i386.rpm
+   wget -O brgenml1cupswrapper-3.1.0-1.i386.rpm https://download.brother.com/welcome/dlf101126/brgenml1cupswrapper-3.1.0-1.i386.rpm
+}
+do_extract() {
+   cd ${XBPS_SRCDISTDIR}
+   7z x brgenml1lpr-3.1.0-1.i386.rpm
+   7z x brgenml1lpr-3.1.0-1.i386.cpio
+   7z x brgenml1cupswrapper-3.1.0-1.i386.rpm
+   7z x brgenml1cupswrapper-3.1.0-1.i386.cpio
+}
+pre_install() {
+   cd ${XBPS_SRCDISTDIR}
+   sed -i 's/\$basedir =~ s\/$PRINTER\\\/cupswrapper\\\/.\*\$\/$PRINTER\\\/\/g;/my \$PRINTER = \"BrGenML1\";\nmy \$basedir = \"\/usr\/share\/Brother\/Printer\/\$PRINTER\";/' opt/brother/Printers/BrGenML1/cupswrapper/brother_lpdwrapper_BrGenML1
+   sed -i '/my \$PRINTER=\$basedir;/d' opt/brother/Printers/BrGenML1/cupswrapper/brother_lpdwrapper_BrGenML1
+   sed -i '/\$PRINTER =\~ s\/\^\\\/opt\\\/.\*\\\/Printers\\\/\/\/g;/d' opt/brother/Printers/BrGenML1/cupswrapper/brother_lpdwrapper_BrGenML1
+   sed -i '/\$PRINTER =\~ s\/\\\/cupswrapper\/\/g;/d' opt/brother/Printers/BrGenML1/cupswrapper/brother_lpdwrapper_BrGenML1
+   sed -i '/\$PRINTER =\~ s\/\\\/\/\/g;/d' opt/brother/Printers/BrGenML1/cupswrapper/brother_lpdwrapper_BrGenML1
+   sed -i 's/\$lpddir = \$basedir.\"\/lpd\/";/\$lpddir = \$basedir.\"\/lpd\";/' opt/brother/Printers/BrGenML1/cupswrapper/brother_lpdwrapper_BrGenML1
+}
+do_install() {
+   cd ${XBPS_SRCDISTDIR}
+   vmove var
+   vinstall opt/brother/Printers/BrGenML1/cupswrapper/brother-BrGenML1-cups-en.ppd 644 usr/share/cups/model
+   vinstall opt/brother/Printers/BrGenML1/cupswrapper/brother_lpdwrapper_BrGenML1 755 usr/lib/cups/filter
+   vinstall opt/brother/Printers/BrGenML1/cupswrapper/paperconfigml1 755 usr/share/Brother/Printer/BrGenML1/cupswrapper
+   vinstall opt/brother/Printers/BrGenML1/inf/braddprinter 755 usr/share/Brother/Printer/BrGenML1/inf
+   vinstall opt/brother/Printers/BrGenML1/inf/brBrGenML1func 644 usr/share/Brother/Printer/BrGenML1/inf
+   vinstall opt/brother/Printers/BrGenML1/inf/brBrGenML1rc 644 usr/share/Brother/Printer/BrGenML1/inf
+   vinstall opt/brother/Printers/BrGenML1/inf/setupPrintcap 755 usr/share/Brother/Printer/BrGenML1/inf
+   vinstall opt/brother/Printers/BrGenML1/lpd/brprintconflsr3 755 usr/share/Brother/Printer/BrGenML1/lpd
+   vinstall opt/brother/Printers/BrGenML1/lpd/filter_BrGenML1 755 usr/share/Brother/Printer/BrGenML1/lpd
+   vinstall opt/brother/Printers/BrGenML1/lpd/rawtobr3 755 usr/share/Brother/Printer/BrGenML1/lpd
+   vlicense ${FILESDIR}/lpr-license.txt
+}
+do_clean() {
+   rm -rf ${XBPS_SRCDISTDIR}/*
+}
