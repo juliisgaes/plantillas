@@ -23,6 +23,7 @@ do_build() {
 do_install() {
    cd ${XBPS_BUILDDIR}/${pkgname}
    python -m installer --destdir=${DESTDIR} dist/*.whl
+   vlicense ${FILESDIR}/mit-license.txt
 }
 do_clean() {
    rm -rf ${XBPS_SRCDISTDIR}/${pkgname}
