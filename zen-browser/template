@@ -1,0 +1,20 @@
+# Template file for 'zen-browser'
+pkgname=zen-browser
+version=1.13.1b
+revision=1
+build_style=fetch
+maintainer="juligar <julianisgaes@gmail.com>"
+short_desc="Welcome to a calmer internet"
+homepage="https://zen-browser.app"
+license="MPL-2.0"
+distfiles="https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.xz"
+checksum=d0fb6c45539f1d9f840cd9b058ba8b58ee74cf1dda4a49e2bb6c089cb6de2475
+
+do_install() {
+	vextract zen.linux-x86_64.tar.xz
+	rm zen.linux-x86_64.tar.xz
+	vmkdir usr/lib/${pkgname}
+	vcopy * usr/lib/${pkgname}
+	vmkdir usr/bin
+	ln -s /usr/lib/${pkgname}/zen ${DESTDIR}/usr/bin
+}

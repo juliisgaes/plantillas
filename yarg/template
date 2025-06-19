@@ -1,0 +1,21 @@
+# Template file for 'yarg'
+pkgname=yarg
+version=0.12.6
+revision=1
+build_style=fetch
+maintainer="juligar <julianisgaes@gmail.com>"
+short_desc="YARG (a.k.a. Yet Another Rhythm Game) is a free, open-source, plastic guitar game that is still in development"
+homepage="https://yarg.in/"
+license="LGPL-3.0-only"
+distfiles="https://github.com/YARC-Official/YARG/releases/download/v${version}/YARG_v${version}-Linux-x86_64.zip"
+checksum=99fde0cf6313db05204c19067f04e21c1d280c86ff8767a9d047004ce701649e
+nopie=true
+
+do_install() {
+	vextract --no-strip-components YARG_v${version}-Linux-x86_64.zip
+	rm YARG_v${version}-Linux-x86_64.zip
+	vmkdir usr/lib/${pkgname}
+	vcopy * usr/lib/${pkgname}
+	vmkdir usr/bin
+	ln -s /usr/lib/${pkgname}/YARG ${DESTDIR}/usr/bin
+}
