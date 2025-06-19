@@ -1,38 +1,19 @@
 # Template file for 'joycond'
+pkgname=joycond
+version=0.1.0
+revision=1
+maintainer="juligar <julianisgaes@gmail.com>"
+short_desc="userspace daemon to combine joy-cons from the hid-nintendo kernel driver"
 homepage="https://github.com/DanielOgorchock/joycond"
 license="GPL-3.0-only"
-maintainer="juligar <julianisgaes@gmail.com>"
-pkgname=joycond
-revision=1
-short_desc="userspace daemon to combine joy-cons from the hid-nintendo kernel driver"
-version=1.0.1
+distfiles="https://github.com/DanielOgorchock/${pkgname}/archive/refs/tags/v${version}.tar.gz"
+checksum=27ece53f646f15d0e2fe13032f88139c51d39d42034b1cf3d2dd86cf4b08718d
 hostmakedepends="git cmake"
 makedepends="pkg-config libevdev-devel eudev-libudev-devel"
-do_fetch() {
-   cd ${XBPS_SRCDISTDIR}
-   git clone ${homepage}.git
-}
-pre_configure() {
-   cp -r ${XBPS_SRCDISTDIR}/${pkgname} ${XBPS_BUILDDIR}
-}
-do_configure() {
-   cd ${XBPS_BUILDDIR}/${pkgname}
-   cmake -DCMAKE_INSTALL_PREFIX=/usr .
-}
-do_build() {
-   cd ${XBPS_BUILDDIR}/${pkgname}
-   make
-}
+
 do_install() {
-   cd ${XBPS_BUILDDIR}/${pkgname}
-   make DESTDIR=${DESTDIR} install
-}
-post_install() {
-   mv ${DESTDIR}/lib/* ${DESTDIR}/usr/lib
-   rm -r ${DESTDIR}/lib
-   vsv ${pkgname}
-}
-do_clean() {
-   rm -rf ${XBPS_SRCDISTDIR}/${pkgname}
-   rm -rf ${XBPS_BUILDDIR}/${pkgname}
+	cmake -DCMAKE_INSTALL_PREFIX=/usr .
+	make DESTDIR=${DESTDIR} install
+	mv ${DESTDIR}/lib ${DESTDIR}/usr
+	vsv ${pkgname}
 }
