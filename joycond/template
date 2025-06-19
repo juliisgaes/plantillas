@@ -6,14 +6,13 @@ maintainer="juligar <julianisgaes@gmail.com>"
 short_desc="userspace daemon to combine joy-cons from the hid-nintendo kernel driver"
 homepage="https://github.com/DanielOgorchock/joycond"
 license="GPL-3.0-only"
-distfiles="https://github.com/DanielOgorchock/${pkgname}/archive/refs/tags/v${version}.tar.gz"
+distfiles="https://github.com/DanielOgorchock/joycond/archive/refs/tags/v${version}.tar.gz"
 checksum=27ece53f646f15d0e2fe13032f88139c51d39d42034b1cf3d2dd86cf4b08718d
-hostmakedepends="git cmake"
-makedepends="pkg-config libevdev-devel eudev-libudev-devel"
+makedepends="cmake pkg-config libevdev-devel eudev-libudev-devel"
 
 do_install() {
 	cmake -DCMAKE_INSTALL_PREFIX=/usr .
 	make DESTDIR=${DESTDIR} install
 	mv ${DESTDIR}/lib ${DESTDIR}/usr
-	vsv ${pkgname}
+	vsv joycond
 }
