@@ -1,0 +1,21 @@
+# Template file for 'onlyoffice'
+pkgname=onlyoffice
+version=8.3.3
+revision=1
+build_style=fetch
+maintainer="juligar <julianisgaes@gmail.com>"
+short_desc="Open-source office suite pack that comprises all the tools you need to work with documents, spreadsheets, presentations, PDFs, and PDF forms"
+homepage="https://www.onlyoffice.com/"
+license="AGPL-3.0-only"
+distfiles="https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors-x64.tar.xz"
+checksum=91411cc4baa21d86e633355aad18edaca3d2b105e7e18e18b4c8acaf9d66fe40
+nopie=true
+
+do_install() {
+	vextract onlyoffice-desktopeditors-x64.tar.xz
+	vmkdir opt
+	vmkdir usr
+	vbin bin/onlyoffice-desktopeditors
+	vcopy share usr
+	vcopy onlyoffice opt
+}
