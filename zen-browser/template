@@ -11,10 +11,8 @@ distfiles="https://github.com/zen-browser/desktop/releases/download/${version}/z
 checksum=18e0ffa99b1d088825751b0e47f1f1a3e981d0aee2bad2adf576148fdfba4e07
 
 do_install() {
-	vextract zen.linux-x86_64.tar.xz
-	rm zen.linux-x86_64.tar.xz
 	vmkdir usr/lib/zen-browser
-	vcopy * usr/lib/zen-browser
+	vextract -C ${DESTDIR}/usr/lib/zen-browser zen.linux-x86_64.tar.xz
 	vmkdir usr/bin
 	ln -s /usr/lib/zen-browser/zen ${DESTDIR}/usr/bin
 }
