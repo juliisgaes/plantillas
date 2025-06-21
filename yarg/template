@@ -14,8 +14,8 @@ nopie=true
 do_install() {
 	vextract --no-strip-components YARG_v${version}-Linux-x86_64.zip
 	rm YARG_v${version}-Linux-x86_64.zip
-	vmkdir usr/lib/${pkgname}
-	vcopy * usr/lib/${pkgname}
+	vmkdir usr/lib/yarg
+	vcopy * usr/lib/yarg
 	vmkdir usr/bin
-	ln -s /usr/lib/${pkgname}/YARG ${DESTDIR}/usr/bin
+	ln -s /usr/lib/yarg/YARG ${DESTDIR}/usr/bin
 }
