@@ -11,5 +11,6 @@ distfiles="https://github.com/ollama/ollama/releases/download/v${version}/ollama
 checksum=2f652de76cf341ecab6975d11ea0d311a970c877f108a434507497e2c5655009
 
 do_install() {
-	vextract ollama-linux-amd64.tgz
+	vmkdir usr
+	vextract --no-strip-components -C ${DESTDIR}/usr ollama-linux-amd64.tgz
 }
