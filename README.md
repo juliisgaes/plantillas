@@ -1,2 +1,3 @@
-# plantillas
-plantillas para xbps-src
+# mis plantillas.
+
+mis plantillas para la utilidad xbps-src.
