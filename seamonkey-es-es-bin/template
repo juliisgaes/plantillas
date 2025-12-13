@@ -1,0 +1,18 @@
+# Template file for 'seamonkey-es-es-bin'
+homepage="https://www.seamonkey-project.org/"
+license="MPL-2.0"
+maintainer="juligar <julianisgaes@gmail.com>"
+pkgname=seamonkey-es-es-bin
+revision=1
+short_desc="all-in-one internet application suite (es-ES)"
+version=2.53.22
+distfiles="https://archive.seamonkey-project.org/releases/${version}/linux-x86_64/es-ES/seamonkey-${version}.es-ES.linux-x86_64.tar.bz2"
+checksum="92bcb3e979e56fde12d11aaef51319cbd4420bba8365bfbef6874709388091af"
+build_style="fetch"
+
+do_install() {
+	vmkdir usr/lib/seamonkey-es-es-bin/
+	vextract -C ${DESTDIR}/usr/lib/seamonkey-es-es-bin seamonkey-${version}.es-ES.linux-x86_64.tar.bz2
+	vmkdir usr/bin/
+	ln -s /usr/lib/seamonkey-es-es-bin/seamonkey ${DESTDIR}/usr/bin/
+}
