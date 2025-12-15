@@ -12,7 +12,7 @@ build_style="fetch"
 
 do_install() {
 	vmkdir usr/lib/seamonkey-es-es-bin/
-	vextract -C ${DESTDIR}/usr/lib/seamonkey-es-es-bin seamonkey-${version}.es-ES.linux-x86_64.tar.bz2
+	vextract -C ${DESTDIR}/usr/lib/seamonkey-es-es-bin/ seamonkey-${version}.es-ES.linux-x86_64.tar.bz2
 	vmkdir usr/bin/
 	ln -s /usr/lib/seamonkey-es-es-bin/seamonkey ${DESTDIR}/usr/bin/
 }
