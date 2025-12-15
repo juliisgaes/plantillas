@@ -1,0 +1,19 @@
+# Template file for 'palemoon-bin'
+homepage="https://www.palemoon.org/"
+license="MPL-2.0"
+maintainer="juligar <julianisgaes@gmail.com>"
+pkgname=palemoon-bin
+revision=1
+short_desc="Open Source, Goanna-based web browser"
+version=33.9.1
+distfiles="https://rm-us.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk3.tar.xz"
+checksum="f35d9de2a1f9fb3139a5a87f175d1a468e922b14bf1886658e96209a94e423d8"
+build_style="fetch"
+nopie=true
+
+do_install() {
+	vmkdir usr/lib/palemoon-bin/
+	vextract -C ${DESTDIR}/usr/lib/palemoon-bin/ palemoon-${version}.linux-x86_64-gtk3.tar.xz
+	vmkdir usr/bin/
+	ln -s /usr/lib/palemoon-bin/palemoon ${DESTDIR}/usr/bin/
+}
