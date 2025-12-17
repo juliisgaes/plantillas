@@ -1,0 +1,18 @@
+# Template file for 'vesktop-bin'
+homepage="https://vesktop.dev/"
+license="GPL-3.0"
+maintainer="juligar <julianisgaes@gmail.com>"
+pkgname=vesktop-bin
+revision=1
+short_desc="A custom Discord App"
+version=1.6.1
+distfiles="https://github.com/Vencord/Vesktop/releases/download/v${version}/vesktop-${version}.tar.gz"
+checksum="c78489c89caad16ba64c082c1c1095a45b66bc84bb437bda7f7d27c91c6d9907"
+build_style="fetch"
+
+do_install() {
+	vmkdir usr/lib/vesktop-bin/
+	vextract -C ${DESTDIR}/usr/lib/vesktop-bin/ vesktop-${version}.tar.gz
+	vmkdir usr/bin/
+	ln -s /usr/lib/vesktop-bin/vesktop ${DESTDIR}/usr/bin/
+}
