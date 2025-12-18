@@ -10,7 +10,6 @@ hostmakedepends="git cmake clang ninja Vulkan-Headers wayland-protocols qt5-quic
 makedepends="openssl-devel hidapi-devel ibus-devel jack-devel fribidi-devel MesaLib-devel pipewire-devel sndio-devel vulkan-loader-devel wayland-devel qt5-devel qt5-webengine-devel qt5-webchannel-devel qt5-declarative-devel qt5-svg-devel qt5-quickcontrols2-devel qt5-location-devel qt5-tools-devel libdecor libXScrnSaver"
 depends="qt5-core qt5-gui qt5-declarative qt5-webengine qt5-widgets libatomic glibc libcrypto3 libgcc httrack libssl3 libstdc++ zlib"
 ignore_elf_files="/usr/share/mcpelauncher/lib/x86_64/libsqliteX.so"
-
 noverifyrdeps=true
 
 do_fetch() {
