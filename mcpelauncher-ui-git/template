@@ -4,10 +4,10 @@ license="GPL-3.0"
 maintainer="juligar <julianisgaes@gmail.com>"
 pkgname=mcpelauncher-ui-git
 revision=1
-short_desc="Bedrock edition Minecraft launcher"
+short_desc="Lets you download and manage Bedrock edition Minecraft"
 version=159c4c1
 hostmakedepends="git cmake protobuf"
-makedepends="zlib-devel libcurl-devel protobuf-devel qt6-base-devel qt6-webengine-devel qt6-svg-devel qt6-tools-devel libzip-devel"
+makedepends="zlib-devel libcurl-devel protobuf-devel qt6-base-devel qt6-webengine-devel qt6-svg-devel qt6-tools-devel libzip-devel mcpelauncher-git"
 
 do_fetch() {
 	git clone -b qt6 --depth 1 --recursive https://github.com/minecraft-linux/mcpelauncher-ui-manifest.git ${wrksrc}
@@ -16,7 +16,7 @@ do_fetch() {
 do_configure() {
 	mkdir build
 	cd build
-	cmake .. -Wno-dev -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS -Wl,--copy-dt-needed-entries"
+	cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS -Wl,--copy-dt-needed-entries"
 }
 
 do_build() {

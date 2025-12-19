@@ -1,0 +1,36 @@
+# Template file for 'mcpelauncher-git'
+homepage="https://minecraft-linux.github.io/"
+license="GPL-3.0"
+maintainer="juligar <julianisgaes@gmail.com>"
+pkgname=mcpelauncher-git
+revision=1
+short_desc="Bedrock edition Minecraft launcher"
+version=cebd864
+hostmakedepends="git cmake clang"
+makedepends="openssl-devel alsa-lib-devel dbus-devel eudev-libudev-devel libusb-compat-devel libsamplerate-devel pulseaudio-devel qt6-base-devel qt6-webengine-devel qt6-tools-devel"
+depends="qt6-core qt6-gui qt6-declarative qt6-webengine qt6-widgets libatomic glibc libcrypto3 libgcc httrack libssl3 libstdc++ zlib"
+noverifyrdeps=true
+ignore_elf_files="/usr/share/mcpelauncher/lib/x86_64/libsqliteX.so"
+
+do_fetch() {
+	git clone -b qt6 --depth 1 --recursive https://github.com/minecraft-linux/mcpelauncher-manifest.git ${wrksrc}
+}
+
+do_configure() {
+	mkdir build
+	cd build
+	CFLAGS="" CXXFLAGS="" CC=clang CXX=clang++ cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release -DGAMEWINDOW_SYSTEM=SDL3 -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+}
+
+do_build() {
+	cd build
+	make -j$(getconf _NPROCESSORS_ONLN) 
+}
+
+do_install() {
+	cd build
+	make DESTDIR=${DESTDIR}/ install
+	rm -r ${DESTDIR}/usr/share/mcpelauncher/lib/x86
+	rm -r ${DESTDIR}/usr/share/mcpelauncher/lib/armeabi-v7a
+	rm -r ${DESTDIR}/usr/share/mcpelauncher/lib/arm64-v8a
+}
