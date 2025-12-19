@@ -19,7 +19,7 @@ do_fetch() {
 do_configure() {
 	mkdir build
 	cd build
-	CC=clang CXX=clang++ cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release -DGAMEWINDOW_SYSTEM=SDL3 -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+	CFLAGS="" CXXFLAGS="" CC=clang CXX=clang++ cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release -DGAMEWINDOW_SYSTEM=SDL3 -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 }
 
 do_build() {
