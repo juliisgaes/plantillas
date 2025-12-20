@@ -1,0 +1,6 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Exec=/usr/lib/vesktop-bin/vesktop --ozone-platform-hint=auto %u
+Name=Vesktop
+Icon=vesktop

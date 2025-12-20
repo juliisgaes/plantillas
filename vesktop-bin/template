@@ -15,4 +15,6 @@ do_install() {
 	vextract -C ${DESTDIR}/usr/lib/vesktop-bin/ vesktop-${version}.tar.gz
 	vmkdir usr/bin/
 	ln -s /usr/lib/vesktop-bin/vesktop ${DESTDIR}/usr/bin/
+	vmkdir usr/share/applications/
+	vinstall ${FILESDIR}/vesktop.desktop 644 usr/share/applications/
 }
