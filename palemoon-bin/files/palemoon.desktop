@@ -1,0 +1,6 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Exec=/usr/lib/palemoon-bin/palemoon %u
+Name=Pale Moon
+Icon=palemoon

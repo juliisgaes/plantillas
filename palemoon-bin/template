@@ -16,4 +16,6 @@ do_install() {
 	vextract -C ${DESTDIR}/usr/lib/palemoon-bin/ palemoon-${version}.linux-x86_64-gtk3.tar.xz
 	vmkdir usr/bin/
 	ln -s /usr/lib/palemoon-bin/palemoon ${DESTDIR}/usr/bin/
+	vmkdir usr/share/applications/
+	vinstall ${FILESDIR}/palemoon.desktop 644 usr/share/applications/
 }
