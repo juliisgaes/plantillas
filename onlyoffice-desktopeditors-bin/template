@@ -1,0 +1,17 @@
+# Template file for 'onlyoffice-desktopeditors-bin'
+homepage="https://www.onlyoffice.com/"
+license="AGPL-3.0-only"
+maintainer="juligar <julianisgaes@gmail.com>"
+pkgname=onlyoffice-desktopeditors-bin
+revision=1
+short_desc="Open-source office suite pack"
+version=9.3.0
+distfiles="https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors-x64.tar.xz"
+checksum="29d5a2cf34ed130b88bac6459d3f75db1b0b70a113a27eaa7a7156fa183750df"
+build_style="fetch"
+nopie=true
+
+do_install() {
+	vextract -C ${DESTDIR}/ --no-strip-components onlyoffice-desktopeditors-x64.tar.xz
+	chmod +x ${DESTDIR}/usr/bin/onlyoffice-desktopeditors
+}
