@@ -1,0 +1,39 @@
+# Template file for 'llama-cpp-bin'
+homepage="https://github.com/ggml-org/llama.cpp/"
+license="MIT"
+maintainer="juligar <julianisgaes@gmail.com>"
+pkgname=llama-cpp-bin
+revision=1
+short_desc="LLM inference in C/C++"
+version=b8720
+distfiles="https://github.com/ggml-org/llama.cpp/releases/download/${version}/llama-${version}-bin-ubuntu-vulkan-x64.tar.gz"
+checksum="1d13f32249e82807b420b750324029e3cf6dece6a798f2a4c86dfd5fd02d32b1"
+build_style=fetch
+
+do_install() {
+	vmkdir usr/lib/llama-cpp-bin/
+	vextract -C ${DESTDIR}/usr/lib/llama-cpp-bin/ llama-${version}-bin-ubuntu-vulkan-x64.tar.gz
+	vmkdir usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-batched-bench ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-bench ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-cli ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-completion ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-debug-template-parser ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-fit-params ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-gemma3-cli ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-gguf-split ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-imatrix ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-llava-cli ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-minicpmv-cli ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-mtmd-cli ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-mtmd-debug ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-perplexity ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-quantize ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-qwen2vl-cli ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-results ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-server ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-template-analysis ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-tokenize ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/llama-tts ${DESTDIR}/usr/bin/
+	ln -s /usr/lib/llama-cpp-bin/rpc-server ${DESTDIR}/usr/bin/
+}
