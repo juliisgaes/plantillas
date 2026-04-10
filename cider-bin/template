@@ -1,0 +1,15 @@
+# Template file for 'cider-bin'
+homepage="https://cider.sh/"
+license="custom:Cider"
+maintainer="juligar <julianisgaes@gmail.com>"
+pkgname=cider-bin
+revision=1
+short_desc="A modern Apple Music app"
+version=318
+
+do_install() {
+	vextract -C ${DESTDIR}/ --no-strip-components ${FILESDIR}/cider-v3.1.8-linux-x64.pkg.tar.zst
+	rm ${DESTDIR}/.BUILDINFO
+	rm ${DESTDIR}/.MTREE
+	rm ${DESTDIR}/.PKGINFO
+}
